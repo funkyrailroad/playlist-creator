@@ -58,3 +58,14 @@ def get_bpms_from_tracks(tracks: list[Track]):
     bpms = [float(af["tempo"]) for af in audio_features]
     assert len(track_ids) == len(bpms)
     return bpms
+
+
+def get_tracks_in_bpm_range(tracks, min_bpm, max_bpm):
+    """Return only the tracks within the bpm range (inclusive)."""
+
+    # filter function
+    def track_is_in_bpm_range(track):
+        return min_bpm <= track.bpm <= max_bpm
+
+    tracks_in_bpm_range = filter(track_is_in_bpm_range, tracks)
+    return tracks_in_bpm_range

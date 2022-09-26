@@ -4,7 +4,7 @@ import unittest
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-from util import Playlist, Track, get_bpms_from_tracks
+from util import Playlist, Track, get_bpms_from_tracks, get_tracks_in_bpm_range
 
 
 class Tests(unittest.TestCase):
@@ -51,3 +51,11 @@ class Tests(unittest.TestCase):
         bpms = get_bpms_from_tracks(self.tracks)
         self.assertIsInstance(bpms, list)
         self.assertIsInstance(bpms[0], float)
+
+    def test_get_tracks_in_bpm_range(self):
+        min_bpm = 100
+        max_bpm = 110
+        new_tracks = get_tracks_in_bpm_range(self.tracks, min_bpm, max_bpm)
+        for nt in new_tracks:
+            self.assertGreaterEqual(nt.bpm, min_bpm)
+            self.assertLessEqual(nt.bpm, max_bpm)
