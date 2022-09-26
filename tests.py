@@ -24,7 +24,7 @@ class Tests(unittest.TestCase):
 
     def get_example_raw_track(self):
         raw_tracks = self.raw_playlist["tracks"]["items"]
-        return raw_tracks[0]['track']
+        return raw_tracks[0]["track"]
 
     def get_example_raw_playlist(self):
         playlists = self.sp.current_user_playlists()["items"]
@@ -33,18 +33,18 @@ class Tests(unittest.TestCase):
 
     def test_playlist_attributes(self):
         playlist = self.playlist
-        self.assertEqual(playlist.name, self.raw_playlist['name'])
-        self.assertEqual(playlist.id, self.raw_playlist['id'])
-        self.assertEqual(playlist.uri, self.raw_playlist['uri'])
+        self.assertEqual(playlist.name, self.raw_playlist["name"])
+        self.assertEqual(playlist.id, self.raw_playlist["id"])
+        self.assertEqual(playlist.uri, self.raw_playlist["uri"])
         self.assertIsInstance(playlist.tracks, list)
         self.assertIsInstance(playlist.tracks[0], Track)
         self.assertIsInstance(playlist.tracks[0].bpm, float)
 
     def test_track_attributes(self):
         track = self.track
-        self.assertEqual(track.name, self.raw_track['name'])
-        self.assertEqual(track.id, self.raw_track['id'])
-        self.assertEqual(track.uri, self.raw_track['uri'])
+        self.assertEqual(track.name, self.raw_track["name"])
+        self.assertEqual(track.id, self.raw_track["id"])
+        self.assertEqual(track.uri, self.raw_track["uri"])
         self.assertIsInstance(track.bpm, float)
 
     def test_get_bpms(self):

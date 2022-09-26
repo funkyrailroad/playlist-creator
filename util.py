@@ -16,9 +16,9 @@ sp = spotipy.Spotify(auth_manager=auth_manager)
 class Playlist:
     def __init__(self, js, with_bpm=False):
         self.js = js
-        self.name = js['name']
-        self.id = js['id']
-        self.uri = js['uri']
+        self.name = js["name"]
+        self.id = js["id"]
+        self.uri = js["uri"]
         self.tracks = self.get_tracks(with_bpm)
 
     def get_tracks(self, with_bpm=False):
@@ -37,16 +37,16 @@ class Playlist:
 class Track:
     def __init__(self, js, with_bpm=False):
         self.js = js
-        self.name = js['name']
-        self.id = js['id']
-        self.uri = js['uri']
+        self.name = js["name"]
+        self.id = js["id"]
+        self.uri = js["uri"]
         if with_bpm:
             self.bpm = self.get_bpm()
 
     def get_bpm(self):
         afs = sp.audio_features([self.id])
         assert len(afs) == 1
-        return afs[0]['tempo']
+        return afs[0]["tempo"]
 
     def __str__(self):
         return self.name
