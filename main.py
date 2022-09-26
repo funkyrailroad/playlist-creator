@@ -41,5 +41,3 @@ for track, bpm in zip(tracks, bpms):
 
 # add items to raw_playlist
 # playlist_add_items(playlist_id, items, position=None)
-
-breakpoint()
