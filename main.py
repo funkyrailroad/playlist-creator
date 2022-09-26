@@ -3,7 +3,7 @@ import os
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 
-from util import Playlist, Track, get_bpms
+from util import Playlist, Track, get_bpms_from_tracks
 
 auth_manager = SpotifyClientCredentials(
     client_id=os.environ["SPOTIPY_CLIENT_ID"],
@@ -26,7 +26,7 @@ raw_playlist = sp.playlist(playlist_id)
 playlist = Playlist(raw_playlist)
 raw_tracks = raw_playlist["tracks"]["items"]
 tracks = [Track(rt["track"]) for rt in raw_tracks]
-bpms = get_bpms(tracks)
+bpms = get_bpms_from_tracks(tracks)
 
 min_bpm = 100
 max_bpm = 110

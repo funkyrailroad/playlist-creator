@@ -4,7 +4,7 @@ import unittest
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-from util import Playlist, Track, get_bpms
+from util import Playlist, Track, get_bpms_from_tracks
 
 
 class Tests(unittest.TestCase):
@@ -48,6 +48,6 @@ class Tests(unittest.TestCase):
         self.assertEqual(track.bpm, self.bpm)
 
     def test_get_bpms(self):
-        bpms = get_bpms(self.tracks)
+        bpms = get_bpms_from_tracks(self.tracks)
         self.assertIsInstance(bpms, list)
         self.assertIsInstance(bpms[0], float)

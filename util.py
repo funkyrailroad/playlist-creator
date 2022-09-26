@@ -43,7 +43,7 @@ class Track:
         return self.name
 
 
-def get_bpms(tracks: list[Track]):
+def get_bpms_from_tracks(tracks: list[Track]):
     track_ids = [track.id for track in tracks]
     audio_features = sp.audio_features(track_ids)
     bpms = [float(af["tempo"]) for af in audio_features]
