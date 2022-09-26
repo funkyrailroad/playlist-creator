@@ -37,7 +37,10 @@ class Track:
         self.id = js['id']
         self.uri = js['uri']
         if with_bpm:
-            self.bpm = sp.audio_features([self.id])
+            self.bpm = self.get_bpm()
+
+    def get_bpm(self):
+        return sp.audio_features([self.id])
 
     def __str__(self):
         return self.name
