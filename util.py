@@ -3,14 +3,20 @@ import os
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-auth_manager = SpotifyOAuth(
-    client_id=os.environ["SPOTIPY_CLIENT_ID"],
-    client_secret=os.environ["SPOTIPY_CLIENT_SECRET"],
-    redirect_uri="https://example.com/callback",
-    scope="user-library-read",
-)
 
-sp = spotipy.Spotify(auth_manager=auth_manager)
+def get_spotipy_client():
+    auth_manager = SpotifyOAuth(
+        client_id=os.environ["SPOTIPY_CLIENT_ID"],
+        client_secret=os.environ["SPOTIPY_CLIENT_SECRET"],
+        redirect_uri="https://example.com/callback",
+        scope="user-library-read",
+    )
+
+    sp = spotipy.Spotify(auth_manager=auth_manager)
+    return sp
+
+
+sp = get_spotipy_client()
 
 
 class Playlist:

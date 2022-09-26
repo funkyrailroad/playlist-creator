@@ -1,21 +1,17 @@
-import os
 import unittest
 
-import spotipy
-from spotipy.oauth2 import SpotifyOAuth
-
-from util import Playlist, Track, get_bpms_from_tracks, get_tracks_in_bpm_range
+from util import (
+    Playlist,
+    Track,
+    get_bpms_from_tracks,
+    get_spotipy_client,
+    get_tracks_in_bpm_range,
+)
 
 
 class Tests(unittest.TestCase):
     def setUp(self):
-        oauth_manager = SpotifyOAuth(
-            client_id=os.environ["SPOTIPY_CLIENT_ID"],
-            client_secret=os.environ["SPOTIPY_CLIENT_SECRET"],
-            redirect_uri="https://example.com/callback",
-            scope="user-library-read",
-        )
-        self.sp = spotipy.Spotify(auth_manager=oauth_manager)
+        self.sp = get_spotipy_client()
         self.raw_playlist = self.get_example_raw_playlist()
         self.raw_track = self.get_example_raw_track()
         self.playlist = Playlist(self.raw_playlist, with_bpm=True)
