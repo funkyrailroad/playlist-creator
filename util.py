@@ -40,7 +40,9 @@ class Track:
             self.bpm = self.get_bpm()
 
     def get_bpm(self):
-        return sp.audio_features([self.id])
+        afs = sp.audio_features([self.id])
+        assert len(afs) == 1
+        return afs[0]['tempo']
 
     def __str__(self):
         return self.name

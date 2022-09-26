@@ -21,7 +21,6 @@ class Tests(unittest.TestCase):
         self.playlist = Playlist(self.raw_playlist)
         self.tracks = self.playlist.tracks
         self.track = Track(self.raw_track, with_bpm=True)
-        self.bpm = self.sp.audio_features([self.track.id])
 
     def get_example_raw_track(self):
         raw_tracks = self.raw_playlist["tracks"]["items"]
@@ -45,7 +44,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(track.name, self.raw_track['name'])
         self.assertEqual(track.id, self.raw_track['id'])
         self.assertEqual(track.uri, self.raw_track['uri'])
-        self.assertEqual(track.bpm, self.bpm)
+        self.assertIsInstance(track.bpm, float)
 
     def test_get_bpms(self):
         bpms = get_bpms_from_tracks(self.tracks)
