@@ -2,3 +2,4 @@ secrets
 .cache
 *swp
 *__pycache__/*
+.ropeproject
