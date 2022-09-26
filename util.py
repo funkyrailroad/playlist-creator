@@ -24,6 +24,10 @@ class Playlist:
     def get_tracks(self, with_bpm=False):
         raw_tracks = self.js["tracks"]["items"]
         tracks = [Track(rt["track"]) for rt in raw_tracks]
+        bpms = get_bpms_from_tracks(tracks)
+        if with_bpm:
+            for track, bpm in zip(tracks, bpms):
+                track.bpm = bpm
         return tracks
 
     def __str__(self):

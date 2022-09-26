@@ -18,7 +18,7 @@ class Tests(unittest.TestCase):
         self.sp = spotipy.Spotify(auth_manager=oauth_manager)
         self.raw_playlist = self.get_example_raw_playlist()
         self.raw_track = self.get_example_raw_track()
-        self.playlist = Playlist(self.raw_playlist)
+        self.playlist = Playlist(self.raw_playlist, with_bpm=True)
         self.tracks = self.playlist.tracks
         self.track = Track(self.raw_track, with_bpm=True)
 
@@ -38,6 +38,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(playlist.uri, self.raw_playlist['uri'])
         self.assertIsInstance(playlist.tracks, list)
         self.assertIsInstance(playlist.tracks[0], Track)
+        self.assertIsInstance(playlist.tracks[0].bpm, float)
 
     def test_track_attributes(self):
         track = self.track
