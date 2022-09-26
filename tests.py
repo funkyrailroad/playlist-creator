@@ -4,7 +4,7 @@ import unittest
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-from util import Playlist, Track
+from util import Playlist, Track, get_bpms
 
 
 class Tests(unittest.TestCase):
@@ -20,7 +20,8 @@ class Tests(unittest.TestCase):
         self.raw_track = self.get_example_raw_track()
         self.playlist = Playlist(self.raw_playlist)
         self.tracks = self.playlist.tracks
-        self.track = self.tracks[0]
+        self.track = Track(self.raw_track, get_bpm=True)
+        self.bpm = self.sp.audio_features([self.track.id])
 
     def get_example_raw_track(self):
         raw_tracks = self.raw_playlist["tracks"]["items"]
@@ -44,3 +45,9 @@ class Tests(unittest.TestCase):
         self.assertEqual(track.name, self.raw_track['name'])
         self.assertEqual(track.id, self.raw_track['id'])
         self.assertEqual(track.uri, self.raw_track['uri'])
+        self.assertEqual(track.bpm, self.bpm)
+
+    def test_get_bpms(self):
+        bpms = get_bpms(self.tracks)
+        self.assertIsInstance(bpms, list)
+        self.assertIsInstance(bpms[0], float)
