@@ -20,7 +20,7 @@ class Tests(unittest.TestCase):
         self.raw_track = self.get_example_raw_track()
         self.playlist = Playlist(self.raw_playlist)
         self.tracks = self.playlist.tracks
-        self.track = Track(self.raw_track, get_bpm=True)
+        self.track = Track(self.raw_track, with_bpm=True)
         self.bpm = self.sp.audio_features([self.track.id])
 
     def get_example_raw_track(self):
