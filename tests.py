@@ -65,8 +65,8 @@ class Tests(unittest.TestCase):
             self.assertIn("name", playlist)
             self.assertIn("id", playlist)
 
-    def test_delete_all_tracks_in_playlist(self):
-        delete_all_tracks_in_playlist(self.target_playlist_id)
-        js = self.sp.playlist(self.target_playlist_id)
-        target_playlist = Playlist(js)
-        self.assertEqual(len(target_playlist.tracks), 0)
+#     def test_delete_all_tracks_in_playlist(self):
+#         delete_all_tracks_in_playlist(self.target_playlist_id)
+#         js = self.sp.playlist(self.target_playlist_id)
+#         target_playlist = Playlist(js)
+#         self.assertEqual(len(target_playlist.tracks), 0)
