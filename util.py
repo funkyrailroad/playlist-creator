@@ -81,7 +81,23 @@ def get_tracks_in_bpm_range(tracks, min_bpm, max_bpm):
     return list(tracks_in_bpm_range)
 
 
+def add_bpm_subset_to_new_playlist(
+    source_playlist_id, target_playlist_id, min_bpm, max_bpm
+):
+    # take a playlist
+    # extract all the songs within a bpm range
+    # add those songs to another playlist
+    pass
+
+
 def list_my_playlist_names_and_ids():
     """Return a list of playlists, their name and id."""
     items = sp.current_user_playlists()["items"]
-    return [{k: item[k] for k in ['name', 'id']} for item in items]
+    return [{k: item[k] for k in ["name", "id"]} for item in items]
+
+
+def delete_all_tracks_in_playlist(playlist_id):
+    js = sp.playlist(playlist_id)
+    target_playlist = Playlist(js)
+    target_playlist_track_ids = [t.id for t in target_playlist.tracks]
+    sp.playlist_remove_all_occurrences_of_items(playlist_id, target_playlist_track_ids)

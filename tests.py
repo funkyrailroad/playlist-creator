@@ -3,6 +3,7 @@ import unittest
 from util import (
     Playlist,
     Track,
+    delete_all_tracks_in_playlist,
     get_bpms_from_tracks,
     get_spotipy_client,
     get_tracks_in_bpm_range,
@@ -18,6 +19,7 @@ class Tests(unittest.TestCase):
         self.playlist = Playlist(self.raw_playlist, with_bpm=True)
         self.tracks = self.playlist.tracks
         self.track = Track(self.raw_track, with_bpm=True)
+        self.target_playlist_id = "7InKckkWA9HT6mF3BTcCiZ"
 
     def get_example_raw_track(self):
         raw_tracks = self.raw_playlist["tracks"]["items"]
@@ -60,5 +62,11 @@ class Tests(unittest.TestCase):
     def test_list_my_playlist_names_and_ids(self):
         playlists = list_my_playlist_names_and_ids()
         for playlist in playlists:
-            self.assertIn('name', playlist)
-            self.assertIn('id', playlist)
+            self.assertIn("name", playlist)
+            self.assertIn("id", playlist)
+
+    def test_delete_all_tracks_in_playlist(self):
+        delete_all_tracks_in_playlist(self.target_playlist_id)
+        js = self.sp.playlist(self.target_playlist_id)
+        target_playlist = Playlist(js)
+        self.assertEqual(len(target_playlist.tracks), 0)
