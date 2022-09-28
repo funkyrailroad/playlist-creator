@@ -62,20 +62,20 @@ class Tests(unittest.TestCase):
             self.assertLessEqual(nt.bpm, max_bpm)
 
     def test_add_bpm_subset_to_new_playlist(self):
-        self.fluxfm_playlist_id = '7hTt6Urb1Nfaxdz0GjbX2A'
+        self.fluxfm_playlist_id = "7hTt6Urb1Nfaxdz0GjbX2A"
         # source_playlist_id =
         min_bpm = 100
         max_bpm = 110
-        add_bpm_subset_to_new_playlist(self.fluxfm_playlist_id,
-                                       self.target_playlist_id,
-                                       min_bpm,
-                                       max_bpm)
+        add_bpm_subset_to_new_playlist(
+            self.fluxfm_playlist_id, self.target_playlist_id, min_bpm, max_bpm
+        )
 
     def test_list_my_playlist_names_and_ids(self):
         playlists = list_my_playlist_names_and_ids()
         for playlist in playlists:
             self.assertIn("name", playlist)
             self.assertIn("id", playlist)
+
 
 #     def test_delete_all_tracks_in_playlist(self):
 #         delete_all_tracks_in_playlist(self.target_playlist_id)

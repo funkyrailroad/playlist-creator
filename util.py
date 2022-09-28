@@ -96,8 +96,7 @@ def add_bpm_subset_to_new_playlist(
     source_playlist = get_playlist_from_id(source_playlist_id)
 
     # extract all the songs within a bpm range
-    tracks_in_range = get_tracks_in_bpm_range(source_playlist.tracks, min_bpm,
-                                              max_bpm)
+    tracks_in_range = get_tracks_in_bpm_range(source_playlist.tracks, min_bpm, max_bpm)
     track_ids_in_range = [track.id for track in tracks_in_range]
     # add those songs to another playlist
     sp.playlist_add_items(target_playlist_id, track_ids_in_range)
