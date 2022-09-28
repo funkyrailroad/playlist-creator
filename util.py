@@ -83,13 +83,23 @@ def get_tracks_in_bpm_range(tracks, min_bpm, max_bpm):
     return list(tracks_in_bpm_range)
 
 
+def get_playlist_from_id(playlist_id):
+    js = sp.playlist(playlist_id)
+    return Playlist(js, with_bpm=True)
+
+
 def add_bpm_subset_to_new_playlist(
     source_playlist_id, target_playlist_id, min_bpm, max_bpm
 ):
     # take a playlist
+    source_playlist = get_playlist_from_id(source_playlist_id)
+
     # extract all the songs within a bpm range
+    tracks_in_range = get_tracks_in_bpm_range(source_playlist.tracks, min_bpm,
+                                              max_bpm)
+    track_ids_in_range = [track.id for track in tracks_in_range]
     # add those songs to another playlist
-    pass
+    sp.playlist_add_items(target_playlist_id, track_ids_in_range)
 
 
 def list_my_playlist_names_and_ids():

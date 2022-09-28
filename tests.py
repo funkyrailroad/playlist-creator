@@ -1,8 +1,10 @@
+from pprint import pprint
 import unittest
 
 from util import (
     Playlist,
     Track,
+    add_bpm_subset_to_new_playlist,
     delete_all_tracks_in_playlist,
     get_bpms_from_tracks,
     get_spotipy_client,
@@ -58,6 +60,16 @@ class Tests(unittest.TestCase):
         for nt in new_tracks:
             self.assertGreaterEqual(nt.bpm, min_bpm)
             self.assertLessEqual(nt.bpm, max_bpm)
+
+    def test_add_bpm_subset_to_new_playlist(self):
+        self.fluxfm_playlist_id = '7hTt6Urb1Nfaxdz0GjbX2A'
+        # source_playlist_id =
+        min_bpm = 100
+        max_bpm = 110
+        add_bpm_subset_to_new_playlist(self.fluxfm_playlist_id,
+                                       self.target_playlist_id,
+                                       min_bpm,
+                                       max_bpm)
 
     def test_list_my_playlist_names_and_ids(self):
         playlists = list_my_playlist_names_and_ids()
