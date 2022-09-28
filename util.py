@@ -40,6 +40,9 @@ class Playlist:
     def __str__(self):
         return self.name
 
+    def get_tracks_in_bpm_range(self, min_bpm, max_bpm):
+        return get_tracks_in_bpm_range(self.tracks, min_bpm, max_bpm)
+
 
 class Track:
     def __init__(self, js, with_bpm=False):
@@ -75,7 +78,7 @@ def get_tracks_in_bpm_range(tracks, min_bpm, max_bpm):
         return min_bpm <= track.bpm <= max_bpm
 
     tracks_in_bpm_range = filter(track_is_in_bpm_range, tracks)
-    return tracks_in_bpm_range
+    return list(tracks_in_bpm_range)
 
 
 def list_my_playlist_names_and_ids():
