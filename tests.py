@@ -6,6 +6,7 @@ from util import (
     get_bpms_from_tracks,
     get_spotipy_client,
     get_tracks_in_bpm_range,
+    list_my_playlist_names_and_ids,
 )
 
 
@@ -55,3 +56,9 @@ class Tests(unittest.TestCase):
         for nt in new_tracks:
             self.assertGreaterEqual(nt.bpm, min_bpm)
             self.assertLessEqual(nt.bpm, max_bpm)
+
+    def test_list_my_playlist_names_and_ids(self):
+        playlists = list_my_playlist_names_and_ids()
+        for playlist in playlists:
+            self.assertIn('name', playlist)
+            self.assertIn('id', playlist)

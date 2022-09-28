@@ -20,6 +20,7 @@ sp = get_spotipy_client()
 
 
 class Playlist:
+    # NOTE: may want to change this to just take the playlist id
     def __init__(self, js, with_bpm=False):
         self.js = js
         self.name = js["name"]
@@ -75,3 +76,9 @@ def get_tracks_in_bpm_range(tracks, min_bpm, max_bpm):
 
     tracks_in_bpm_range = filter(track_is_in_bpm_range, tracks)
     return tracks_in_bpm_range
+
+
+def list_my_playlist_names_and_ids():
+    """Return a list of playlists, their name and id."""
+    items = sp.current_user_playlists()["items"]
+    return [{k: item[k] for k in ['name', 'id']} for item in items]
