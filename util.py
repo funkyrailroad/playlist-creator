@@ -9,7 +9,8 @@ def get_spotipy_client():
         client_id=os.environ["SPOTIPY_CLIENT_ID"],
         client_secret=os.environ["SPOTIPY_CLIENT_SECRET"],
         redirect_uri="https://example.com/callback",
-        scope="user-library-read",
+        # scope="user-library-read",
+        scope="playlist-modify-private",
     )
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
