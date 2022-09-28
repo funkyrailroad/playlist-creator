@@ -63,6 +63,8 @@ class Track:
 
 
 def get_bpms_from_tracks(tracks: list[Track]):
+    if not tracks:
+        return []
     track_ids = [track.id for track in tracks]
     audio_features = sp.audio_features(track_ids)
     bpms = [float(af["tempo"]) for af in audio_features]
