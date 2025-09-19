@@ -40,6 +40,20 @@ tracks_in_bpm_range = get_tracks_in_bpm_range(tracks, min_bpm, max_bpm)
 
 # create a new raw_playlist with just these filtered songs
 new_playlist_name = f"{playlist.name}: {min_bpm}-{max_bpm} BPM"
+print()
+print("Adding", len(tracks_in_bpm_range), "tracks to")
+print()
+print(new_playlist_name)
+print()
+print()
+print()
+
+
+user_response = input("Do you want to continue? (Enter/y/yes): ").lower()
+if user_response not in ["", "y", "yes"]:
+    print("Aborting.")
+    exit(0)
+
 new_pl = sp.user_playlist_create(
     user_id, new_playlist_name, public=False, collaborative=False
 )
