@@ -6,12 +6,15 @@ from util import (
 )
 
 sp = get_spotipy_client()
+user_info = sp.current_user()
+user_id = user_info["id"]
 
 playlists = sp.current_user_playlists()["items"]
 playlist_id = playlists[0]["id"]
 raw_playlist = sp.playlist(playlist_id)
 
 playlist = Playlist(raw_playlist, with_bpm=True)
+playlist_id = playlist.id
 raw_tracks = raw_playlist["tracks"]["items"]
 tracks = playlist.tracks
 bpms = get_bpms_from_tracks(tracks)
@@ -22,8 +25,12 @@ max_bpm = 110
 tracks_in_bpm_range = get_tracks_in_bpm_range(tracks, min_bpm, max_bpm)
 
 
-# TODO: create a new raw_playlist with just these filtered songs
-# user_playlist_create(user, name, public=True, collaborative=False, description='')
+# create a new raw_playlist with just these filtered songs
+new_playlist_name = f"{playlist.name}: {min_bpm}-{max_bpm} BPM"
+new_pl = sp.user_playlist_create(
+    user_id, new_playlist_name, public=False, collaborative=False
+)
+new_pl_id = new_pl["id"]
 
 # add items to raw_playlist
-# playlist_add_items(playlist_id, items, position=None)
+sp.playlist_add_items(new_pl_id, [track.id for track in tracks_in_bpm_range])
