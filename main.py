@@ -1,3 +1,5 @@
+import argparse
+
 from util import (
     Playlist,
     get_bpms_from_tracks,
@@ -5,12 +7,23 @@ from util import (
     get_tracks_in_bpm_range,
 )
 
+parser = argparse.ArgumentParser(
+    prog="The Musical Metronome Playlist Creator",
+    description="Create a new playlist with songs in a given BPM range",
+)
+
+parser.add_argument("playlist_id")
+parser.add_argument("min_bpm")
+parser.add_argument("max_bpm")
+
+args = parser.parse_args()
+
+
 sp = get_spotipy_client()
 user_info = sp.current_user()
 user_id = user_info["id"]
 
-playlists = sp.current_user_playlists()["items"]
-playlist_id = playlists[0]["id"]
+playlist_id = args.playlist_id
 raw_playlist = sp.playlist(playlist_id)
 
 playlist = Playlist(raw_playlist, with_bpm=True)
@@ -19,8 +32,8 @@ raw_tracks = raw_playlist["tracks"]["items"]
 tracks = playlist.tracks
 bpms = get_bpms_from_tracks(tracks)
 
-min_bpm = 100
-max_bpm = 110
+min_bpm = args.min_bpm
+max_bpm = args.max_bpm
 
 tracks_in_bpm_range = get_tracks_in_bpm_range(tracks, min_bpm, max_bpm)
 
